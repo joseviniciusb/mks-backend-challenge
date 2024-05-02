@@ -1,9 +1,19 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Res,
+} from '@nestjs/common';
 
 @Controller()
 export class FilmCatalogController {
   @Get('film-catalog')
-  findAll(@Res() response ) {
+  findAll(@Res() response) {
     return response.status(200).send('Catálogo de filmes');
   }
 
@@ -16,5 +26,12 @@ export class FilmCatalogController {
   @HttpCode(HttpStatus.NO_CONTENT)
   create(@Body() body) {
     return body;
+  }
+
+  @Patch('film-catalog/:id')
+  update(@Param() params, @Body() body) {
+    return `
+    Atualização do Filme ${params.id}
+    `;
   }
 }
