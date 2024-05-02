@@ -10,9 +10,15 @@ import {
   Post,
   Res,
 } from '@nestjs/common';
+import { FilmCatalogService } from './film-catalog.service';
 
 @Controller()
 export class FilmCatalogController {
+
+  constructor(private readonly listCatalogService: FilmCatalogService) {
+
+  }
+
   @Get('film-catalog')
   findAll(@Res() response) {
     return response.status(200).send('Catálogo de filmes');
