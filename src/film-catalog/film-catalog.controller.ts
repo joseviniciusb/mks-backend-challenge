@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -32,6 +33,13 @@ export class FilmCatalogController {
   update(@Param() params, @Body() body) {
     return `
     Atualização do Filme ${params.id}
+    `;
+  }
+
+  @Delete('film-catalog/:id')
+  remove(@Param() params) {
+    return `
+    Deletar o Filme ${params.id}
     `;
   }
 }
