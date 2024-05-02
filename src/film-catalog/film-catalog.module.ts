@@ -1,4 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Get, Module } from '@nestjs/common';
+import { FilmCatalogController } from './film-catalog.controller';
 
-@Module({})
+
+@Module({
+  controllers: [FilmCatalogController]
+})
 export class FilmCatalogModule {}
