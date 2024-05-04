@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Film } from './entities/film.entity';
 
 @Injectable()
@@ -19,11 +19,21 @@ export class FilmCatalogService {
   }
 
   findOne(id: string) {
-    return this.films.find((film) => film.id === Number(id));
+    const film = this.films.find((film) => film.id === Number(id));
+
+    if (!film) {
+      throw new HttpException(
+        `Filme ${id} não encontrado`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return film;
   }
 
   create(createFilmDto: any) {
     this.films.push(createFilmDto);
+    return createFilmDto;
   }
 
   update(id: string, updateFilmDto: any) {
@@ -33,10 +43,12 @@ export class FilmCatalogService {
   }
 
   remove(id: string) {
-    const indexFilm = this.films.findIndex((film: Film) => film.id === Number(id) )
+    const indexFilm = this.films.findIndex(
+      (film: Film) => film.id === Number(id),
+    );
 
-    if(indexFilm >= 0){
-        this.films.splice(indexFilm,  1)
+    if (indexFilm >= 0) {
+      this.films.splice(indexFilm, 1);
     }
   }
 }
